@@ -45,25 +45,62 @@
     }
 
     /* ==========================================================================
-       HEADER & NAVIGATION
+       HEADER & RESPONSIVE NAVIGATION
        ========================================================================== */
     header {
       background-color: var(--green-racing);
       color: var(--bg-ivory);
-      padding: 1.5rem 3rem;
+      padding: 1.25rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 2px solid var(--brass);
+      position: relative;
+      z-index: 1000;
     }
 
     .brand {
       font-family: var(--font-serif);
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       font-weight: 600;
       color: var(--bg-ivory);
+      cursor: pointer;
+    }
+
+    /* Hamburger Toggle Button (Hidden on Desktop) */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 32px;
+      height: 32px;
+      z-index: 1001;
+    }
+
+    .hamburger-line {
+      width: 100%;
+      height: 2px;
+      background-color: var(--brass);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Hamburger Animation States when open */
+    .hamburger.active .hamburger-line:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active .hamburger-line:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
     }
 
     .nav-links {
@@ -73,12 +110,13 @@
     }
 
     .nav-links a {
-      color: rgba(251, 249, 245, 0.8);
+      color: rgba(251, 249, 245, 0.85);
       text-decoration: none;
       font-size: 0.85rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       transition: color 0.2s ease;
+      display: block;
     }
 
     .nav-links a:hover, .nav-links a.active {
@@ -86,38 +124,74 @@
     }
 
     /* ==========================================================================
-       MAIN LAYOUT
+       MOBILE NAVIGATION BREAKPOINT
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--green-racing);
+        flex-direction: column;
+        gap: 0;
+        border-bottom: 2px solid var(--brass);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        
+        /* Hidden state */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .nav-links.open {
+        max-height: 300px; /* Expands to fit links */
+      }
+
+      .nav-links li {
+        border-top: 1px solid rgba(197, 160, 89, 0.15);
+      }
+
+      .nav-links a {
+        padding: 1.2rem 2rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* ==========================================================================
+       MAIN LAYOUT & CARDS
        ========================================================================== */
     main {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 3rem 2rem;
+      padding: 2.5rem 1.5rem;
     }
 
     .section-title {
       font-family: var(--font-serif);
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: var(--green-racing);
       margin-bottom: 0.5rem;
     }
 
     .section-subtitle {
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       margin-bottom: 2rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
-    /* ==========================================================================
-       DASHBOARD / ENTRANCE HALL COMPONENTS
-       ========================================================================== */
     .hero-card {
       background-color: var(--green-racing);
       color: var(--bg-ivory);
-      padding: 3rem;
+      padding: 2.5rem 2rem;
       border-radius: 4px;
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
       position: relative;
       border-left: 4px solid var(--brass);
     }
@@ -133,15 +207,16 @@
 
     .hero-card h2 {
       font-family: var(--font-serif);
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       font-weight: 400;
       margin-bottom: 1rem;
+      line-height: 1.3;
     }
 
     .hero-card p {
       color: rgba(251, 249, 245, 0.85);
       max-width: 650px;
-      font-size: 1.05rem;
+      font-size: 1rem;
       margin-bottom: 2rem;
     }
 
@@ -163,18 +238,18 @@
       background-color: var(--brass-hover);
     }
 
-    /* Grid Layout for Rooms/Schools */
+    /* Grid Layout for Rooms */
     .estate-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
       margin-bottom: 3rem;
     }
 
     .room-card {
       background-color: var(--bg-ivory-card);
       border: 1px solid var(--border-subtle);
-      padding: 1.8rem;
+      padding: 1.5rem;
       border-radius: 4px;
       transition: transform 0.2s ease, border-color 0.2s ease;
       cursor: pointer;
@@ -196,19 +271,19 @@
 
     .room-card h3 {
       font-family: var(--font-serif);
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       color: var(--green-racing);
       margin-bottom: 0.75rem;
     }
 
     .room-card p {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--text-muted);
       line-height: 1.5;
     }
 
     /* ==========================================================================
-       LESSON & CONVERSATION VIEW (HIDDEN BY DEFAULT)
+       LESSON & CONVERSATION VIEWS
        ========================================================================== */
     .view-container {
       display: none;
@@ -221,7 +296,7 @@
     .lesson-content {
       background: #FFFFFF;
       border: 1px solid var(--border-subtle);
-      padding: 3rem;
+      padding: 2.5rem 1.75rem;
       border-radius: 4px;
       max-width: 800px;
       margin: 0 auto;
@@ -235,21 +310,21 @@
 
     .lesson-header h1 {
       font-family: var(--font-serif);
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       color: var(--green-racing);
       margin-bottom: 0.5rem;
     }
 
     .lesson-body p {
-      margin-bottom: 1.5rem;
-      font-size: 1.05rem;
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
       color: #333331;
     }
 
     .conversation-box {
       background-color: var(--bg-ivory);
       border-left: 3px solid var(--brass);
-      padding: 1.5rem;
+      padding: 1.25rem;
       margin: 2rem 0;
     }
 
@@ -257,7 +332,7 @@
       font-family: var(--font-serif);
       color: var(--green-racing);
       margin-bottom: 0.5rem;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
     }
 
     .conversation-box p {
@@ -266,10 +341,10 @@
       margin-bottom: 0;
     }
 
-    /* Quiz Container */
+    /* Quiz Styling */
     .quiz-container {
-      margin-top: 3rem;
-      padding-top: 2rem;
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
       border-top: 1px solid var(--border-subtle);
     }
 
@@ -277,14 +352,14 @@
       display: block;
       width: 100%;
       text-align: left;
-      padding: 1rem;
+      padding: 0.9rem;
       margin-bottom: 0.75rem;
       background-color: var(--bg-ivory);
       border: 1px solid var(--border-subtle);
       border-radius: 4px;
       cursor: pointer;
       font-family: var(--font-sans);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       transition: background-color 0.2s ease;
     }
 
@@ -298,6 +373,7 @@
       padding: 1rem;
       border-radius: 4px;
       display: none;
+      font-size: 0.9rem;
     }
 
     .quiz-feedback.correct {
@@ -312,12 +388,11 @@
       color: #A82218;
     }
 
-    /* Footer */
     footer {
       text-align: center;
-      padding: 3rem;
+      padding: 2.5rem 1rem;
       color: var(--text-muted);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       border-top: 1px solid var(--border-subtle);
       margin-top: 4rem;
     }
@@ -325,13 +400,22 @@
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- HEADER WITH HAMBURGER MENU -->
   <header>
-    <div class="brand">The Gentleman</div>
-    <ul class="nav-links">
-      <li><a href="#" onclick="switchView('hall')" class="active" id="nav-hall">Entrance Hall</a></li>
-      <li><a href="#" onclick="switchView('study')" id="nav-study">The Study (Watches)</a></li>
-      <li><a href="#" onclick="switchView('drawing')" id="nav-drawing">Drawing Room (Conversation)</a></li>
+    <div class="brand" onclick="switchView('hall')">The Gentleman</div>
+    
+    <!-- Mobile Hamburger Button -->
+    <button class="hamburger" id="hamburger-btn" onclick="toggleMenu()" aria-label="Toggle Navigation Menu">
+      <div class="hamburger-line"></div>
+      <div class="hamburger-line"></div>
+      <div class="hamburger-line"></div>
+    </button>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="#" onclick="handleNav('hall')" class="active" id="nav-hall">Entrance Hall</a></li>
+      <li><a href="#" onclick="handleNav('study')" id="nav-study">The Study (Watches)</a></li>
+      <li><a href="#" onclick="handleNav('drawing')" id="nav-drawing">Drawing Room (Conversation)</a></li>
     </ul>
   </header>
 
@@ -402,7 +486,7 @@
 
           <p>An <strong>Annual Calendar</strong> automatically adjusts for months with 30 or 31 days. However, it requires manual adjustment once a year—on the first of March—because it assumes February always has 30 or 31 days.</p>
 
-          <p>A <strong>Perpetual Calendar</strong> is far more complex. It accounts for month lengths, February's 28 days, and automatically adjusts for leap years until the year 2100 (when secular leap year rules interrupt the standard pattern).</p>
+          <p>A <strong>Perpetual Calendar</strong> is far more complex. It accounts for month lengths, February's 28 days, and automatically adjusts for leap years until the year 2100.</p>
 
           <!-- The Conversation Layer -->
           <div class="conversation-box">
@@ -454,33 +538,52 @@
     <p>&copy; 2026 The Gentleman. A Digital Finishing School for the Modern Man.</p>
   </footer>
 
-  <!-- INTERACTIVITY & NAVIGATION LOGIC -->
+  <!-- SCRIPT LOGIC -->
   <script>
+    // Toggle Hamburger Menu Open/Close
+    function toggleMenu() {
+      const navMenu = document.getElementById('nav-menu');
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      
+      navMenu.classList.toggle('open');
+      hamburgerBtn.classList.toggle('active');
+    }
+
+    // Helper function to handle menu click & view switch together
+    function handleNav(viewName) {
+      switchView(viewName);
+      
+      // Close mobile menu after selecting a link
+      const navMenu = document.getElementById('nav-menu');
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      if (navMenu.classList.contains('open')) {
+        navMenu.classList.remove('open');
+        hamburgerBtn.classList.remove('active');
+      }
+    }
+
+    // View Switching Mechanism
     function switchView(viewName) {
-      // Hide all views
       const views = document.querySelectorAll('.view-container');
       views.forEach(view => view.classList.remove('active'));
 
-      // Remove active class from nav links
       const navLinks = document.querySelectorAll('.nav-links a');
       navLinks.forEach(link => link.classList.remove('active'));
 
-      // Show selected view
       const selectedView = document.getElementById('view-' + viewName);
       if (selectedView) {
         selectedView.classList.add('active');
       }
 
-      // Highlight corresponding nav link
-      const selectedNav = document.getElementById('nav-' + viewName);
+      const selectedNav = document.getElementById('nav-nav-' + viewName) || document.getElementById('nav-' + viewName);
       if (selectedNav) {
         selectedNav.classList.add('active');
       }
 
-      // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // Quiz Option Checker
     function checkAnswer(button, isCorrect) {
       const feedback = document.getElementById('quiz-feedback');
       
