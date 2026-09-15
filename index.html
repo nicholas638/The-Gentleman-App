@@ -30,11 +30,7 @@
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--bg-ivory);
@@ -69,7 +65,6 @@
       cursor: pointer;
     }
 
-    /* Hamburger Toggle Button (Hidden on Desktop) */
     .hamburger {
       display: none;
       background: none;
@@ -90,22 +85,13 @@
       transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
-    /* Hamburger Animation States when open */
-    .hamburger.active .hamburger-line:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.active .hamburger-line:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active .hamburger-line:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
+    .hamburger.active .hamburger-line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active .hamburger-line:nth-child(2) { opacity: 0; }
+    .hamburger.active .hamburger-line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     .nav-links {
       display: flex;
-      gap: 2rem;
+      gap: 1.5rem;
       list-style: none;
     }
 
@@ -119,18 +105,10 @@
       display: block;
     }
 
-    .nav-links a:hover, .nav-links a.active {
-      color: var(--brass);
-    }
+    .nav-links a:hover, .nav-links a.active { color: var(--brass); }
 
-    /* ==========================================================================
-       MOBILE NAVIGATION BREAKPOINT
-       ========================================================================== */
     @media (max-width: 768px) {
-      .hamburger {
-        display: flex;
-      }
-
+      .hamburger { display: flex; }
       .nav-links {
         position: absolute;
         top: 100%;
@@ -141,29 +119,17 @@
         gap: 0;
         border-bottom: 2px solid var(--brass);
         box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        
-        /* Hidden state */
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       }
-
-      .nav-links.open {
-        max-height: 300px; /* Expands to fit links */
-      }
-
-      .nav-links li {
-        border-top: 1px solid rgba(197, 160, 89, 0.15);
-      }
-
-      .nav-links a {
-        padding: 1.2rem 2rem;
-        font-size: 0.9rem;
-      }
+      .nav-links.open { max-height: 400px; }
+      .nav-links li { border-top: 1px solid rgba(197, 160, 89, 0.15); }
+      .nav-links a { padding: 1.2rem 2rem; font-size: 0.9rem; }
     }
 
     /* ==========================================================================
-       MAIN LAYOUT & CARDS
+       MAIN LAYOUT & BREADCRUMBS
        ========================================================================== */
     main {
       max-width: 1200px;
@@ -171,9 +137,24 @@
       padding: 2.5rem 1.5rem;
     }
 
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .breadcrumb span { cursor: pointer; }
+    .breadcrumb span:hover { color: var(--brass); }
+    .breadcrumb .active { color: var(--green-racing); font-weight: 600; cursor: default; }
+
     .section-title {
       font-family: var(--font-serif);
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: var(--green-racing);
       margin-bottom: 0.5rem;
     }
@@ -186,70 +167,101 @@
       letter-spacing: 0.05em;
     }
 
-    .hero-card {
+    /* ==========================================================================
+       SUBJECT PAGE TEMPLATE ARCHITECTURE
+       ========================================================================== */
+    .subject-header {
       background-color: var(--green-racing);
       color: var(--bg-ivory);
       padding: 2.5rem 2rem;
       border-radius: 4px;
-      margin-bottom: 2.5rem;
-      position: relative;
       border-left: 4px solid var(--brass);
+      margin-bottom: 2rem;
     }
 
-    .hero-card .tag {
+    .subject-header .room-tag {
       color: var(--brass);
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      margin-bottom: 1rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .subject-header h1 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      margin-bottom: 0.75rem;
+      font-weight: 400;
+    }
+
+    .subject-header p {
+      color: rgba(251, 249, 245, 0.85);
+      max-width: 700px;
+      font-size: 1rem;
+    }
+
+    /* Sub-Subject Tab Bar Navigation */
+    .sub-navigation {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--border-subtle);
+      margin-bottom: 2rem;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .sub-nav-btn {
+      background: none;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .sub-nav-btn:hover {
+      color: var(--green-racing);
+    }
+
+    .sub-nav-btn.active {
+      color: var(--green-racing);
+      border-bottom-color: var(--brass);
+      font-weight: 600;
+    }
+
+    /* Content Cards for Sub-Subjects */
+    .sub-topic-content {
+      display: none;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      padding: 2.5rem;
+      border-radius: 4px;
+      max-width: 850px;
+    }
+
+    .sub-topic-content.active {
       display: block;
     }
 
-    .hero-card h2 {
-      font-family: var(--font-serif);
-      font-size: 1.8rem;
-      font-weight: 400;
-      margin-bottom: 1rem;
-      line-height: 1.3;
-    }
-
-    .hero-card p {
-      color: rgba(251, 249, 245, 0.85);
-      max-width: 650px;
-      font-size: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .btn-primary {
-      background-color: var(--brass);
-      color: var(--green-deep);
-      border: none;
-      padding: 0.8rem 1.8rem;
-      font-family: var(--font-sans);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-
-    .btn-primary:hover {
-      background-color: var(--brass-hover);
-    }
-
-    /* Grid Layout for Rooms */
+    /* Grid Layout for Homepage Room Directory */
     .estate-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
       margin-bottom: 3rem;
     }
 
     .room-card {
       background-color: var(--bg-ivory-card);
       border: 1px solid var(--border-subtle);
-      padding: 1.5rem;
+      padding: 1.75rem;
       border-radius: 4px;
       transition: transform 0.2s ease, border-color 0.2s ease;
       cursor: pointer;
@@ -271,122 +283,33 @@
 
     .room-card h3 {
       font-family: var(--font-serif);
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       color: var(--green-racing);
       margin-bottom: 0.75rem;
     }
 
     .room-card p {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
       line-height: 1.5;
-    }
-
-    /* ==========================================================================
-       LESSON & CONVERSATION VIEWS
-       ========================================================================== */
-    .view-container {
-      display: none;
-    }
-
-    .view-container.active {
-      display: block;
-    }
-
-    .lesson-content {
-      background: #FFFFFF;
-      border: 1px solid var(--border-subtle);
-      padding: 2.5rem 1.75rem;
-      border-radius: 4px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .lesson-header {
-      border-bottom: 1px solid var(--border-subtle);
-      padding-bottom: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .lesson-header h1 {
-      font-family: var(--font-serif);
-      font-size: 1.8rem;
-      color: var(--green-racing);
-      margin-bottom: 0.5rem;
-    }
-
-    .lesson-body p {
-      margin-bottom: 1.25rem;
-      font-size: 1rem;
-      color: #333331;
     }
 
     .conversation-box {
       background-color: var(--bg-ivory);
       border-left: 3px solid var(--brass);
       padding: 1.25rem;
-      margin: 2rem 0;
+      margin: 1.75rem 0;
     }
 
     .conversation-box h4 {
       font-family: var(--font-serif);
       color: var(--green-racing);
       margin-bottom: 0.5rem;
-      font-size: 1.05rem;
     }
 
-    .conversation-box p {
-      font-style: italic;
-      color: var(--text-dark);
-      margin-bottom: 0;
-    }
-
-    /* Quiz Styling */
-    .quiz-container {
-      margin-top: 2.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    .quiz-option {
-      display: block;
-      width: 100%;
-      text-align: left;
-      padding: 0.9rem;
-      margin-bottom: 0.75rem;
-      background-color: var(--bg-ivory);
-      border: 1px solid var(--border-subtle);
-      border-radius: 4px;
-      cursor: pointer;
-      font-family: var(--font-sans);
-      font-size: 0.9rem;
-      transition: background-color 0.2s ease;
-    }
-
-    .quiz-option:hover {
-      background-color: var(--bg-ivory-card);
-      border-color: var(--brass);
-    }
-
-    .quiz-feedback {
-      margin-top: 1rem;
-      padding: 1rem;
-      border-radius: 4px;
-      display: none;
-      font-size: 0.9rem;
-    }
-
-    .quiz-feedback.correct {
-      display: block;
-      background-color: #E6F0E8;
-      color: #1B4D2E;
-    }
-
-    .quiz-feedback.incorrect {
-      display: block;
-      background-color: #FCE8E6;
-      color: #A82218;
-    }
+    /* Views Switcher */
+    .view-container { display: none; }
+    .view-container.active { display: block; }
 
     footer {
       text-align: center;
@@ -400,160 +323,227 @@
 </head>
 <body>
 
-  <!-- HEADER WITH HAMBURGER MENU -->
+  <!-- HEADER WITH RESPONSIVE HAMBURGER NAVIGATION -->
   <header>
-    <div class="brand" onclick="switchView('hall')">The Gentleman</div>
+    <div class="brand" onclick="switchSubject('hall')">The Gentleman</div>
     
-    <!-- Mobile Hamburger Button -->
     <button class="hamburger" id="hamburger-btn" onclick="toggleMenu()" aria-label="Toggle Navigation Menu">
       <div class="hamburger-line"></div>
       <div class="hamburger-line"></div>
       <div class="hamburger-line"></div>
     </button>
 
-    <!-- Navigation Links -->
     <ul class="nav-links" id="nav-menu">
       <li><a href="#" onclick="handleNav('hall')" class="active" id="nav-hall">Entrance Hall</a></li>
-      <li><a href="#" onclick="handleNav('study')" id="nav-study">The Study (Watches)</a></li>
-      <li><a href="#" onclick="handleNav('drawing')" id="nav-drawing">Drawing Room (Conversation)</a></li>
+      <li><a href="#" onclick="handleNav('watches')" id="nav-watches">Watches</a></li>
+      <li><a href="#" onclick="handleNav('conversation')" id="nav-conversation">Conversation</a></li>
+      <li><a href="#" onclick="handleNav('style')" id="nav-style">Style & Dress</a></li>
     </ul>
   </header>
 
   <main>
-    <!-- VIEW 1: ENTRANCE HALL (DASHBOARD) -->
+
+    <!-- ==========================================================================
+       VIEW 1: ENTRANCE HALL (ALL SUBJECTS DIRECTORY)
+       ========================================================================== -->
     <div id="view-hall" class="view-container active">
-      <div class="hero-card">
-        <span class="tag">Today's Curriculum</span>
-        <h2>Good evening. Ready to begin?</h2>
+      <div class="subject-header">
+        <span class="room-tag">Private Library & Curriculum</span>
+        <h1>Welcome to the Estate</h1>
         <p>A gentleman isn’t defined by wealth or status, but by competence, self-command, curiosity, and the ability to make others feel at ease.</p>
-        <button class="btn-primary" onclick="switchView('study')">Enter The Study</button>
       </div>
 
-      <h2 class="section-title">The Estate Rooms</h2>
-      <p class="section-subtitle">Select a discipline to deepen your understanding</p>
+      <h2 class="section-title">The 14 Schools</h2>
+      <p class="section-subtitle">Select a subject page to explore its lessons & sub-topics</p>
 
       <div class="estate-grid">
-        <div class="room-card" onclick="switchView('study')">
+        <div class="room-card" onclick="switchSubject('watches')">
           <span class="room-name">The Study</span>
-          <h3>Mechanical Horology</h3>
-          <p>Understand watch anatomy, complications, historical watch houses, and why mechanics matter beyond status.</p>
+          <h3>1. Mechanical Horology</h3>
+          <p>Anatomy, movements, perpetual calendar complications, watch houses, and horological context.</p>
         </div>
 
-        <div class="room-card" onclick="switchView('drawing')">
+        <div class="room-card" onclick="switchSubject('conversation')">
           <span class="room-name">The Drawing Room</span>
-          <h3>The Art of Conversation</h3>
-          <p>Master reciprocal dialogue, social grace, introductions, and how to articulate ideas comfortably.</p>
+          <h3>2. Conversation & Etiquette</h3>
+          <p>Reciprocal dialogue, social confidence, hosting, introductions, and reading social situations.</p>
         </div>
 
-        <div class="room-card">
-          <span class="room-name">The Workshop</span>
-          <h3>Practical Competence</h3>
-          <p>Tools, home mechanics, problem-solving, and knowing how to handle physical breakdowns calmly.</p>
-        </div>
-
-        <div class="room-card">
-          <span class="room-name">The Boathouse</span>
-          <h3>Seamanship</h3>
-          <p>Nautical terms, points of sail, yacht etiquette, and understanding lines and navigation.</p>
-        </div>
-
-        <div class="room-card">
+        <div class="room-card" onclick="switchSubject('style')">
           <span class="room-name">The Dressing Room</span>
-          <h3>Style & Tailoring</h3>
-          <p>Fit, proportions, canvassed construction, formalwear rules, and building a timeless wardrobe.</p>
+          <h3>3. Style & Dress</h3>
+          <p>Fit, proportions, canvassed suit construction, black tie rules, shoes, and wardrobe coherence.</p>
         </div>
 
-        <div class="room-card">
-          <span class="room-name">The Cellar & Dining Room</span>
-          <h3>Wine, Spirits & Hosting</h3>
-          <p>Understanding regions, grape varieties, wine lists, table settings, and creating occasions.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- VIEW 2: THE STUDY (WATCHES LESSON) -->
-    <div id="view-study" class="view-container">
-      <div class="lesson-content">
-        <div class="lesson-header">
-          <p class="section-subtitle">The Study · Lesson 04</p>
-          <h1>Understanding Complications: The Calendar</h1>
+        <div class="room-card" onclick="switchSubject('boathouse')">
+          <span class="room-name">The Boathouse</span>
+          <h3>4. Seamanship</h3>
+          <p>Nautical vocabulary, points of sail, yachting etiquette, knots, and deck competence.</p>
         </div>
 
-        <div class="lesson-body">
-          <p>To the uninitiated, a watch simply tells time. To a cultivated eye, mechanical watches represent centuries of miniature engineering solved without digital microchips.</p>
-          
-          <p>A <strong>complication</strong> is any feature on a mechanical watch beyond displaying hours, minutes, and seconds. Among the most respected calendar complications are the <em>Annual Calendar</em> and the <em>Perpetual Calendar</em>.</p>
+        <div class="room-card" onclick="switchSubject('cellar')">
+          <span class="room-name">The Dining Room & Cellar</span>
+          <h3>5. Dining & Drinks</h3>
+          <p>Wine regions, grape varieties, spirit distillation, restaurant lists, and hosting gracefully.</p>
+        </div>
 
-          <p>An <strong>Annual Calendar</strong> automatically adjusts for months with 30 or 31 days. However, it requires manual adjustment once a year—on the first of March—because it assumes February always has 30 or 31 days.</p>
-
-          <p>A <strong>Perpetual Calendar</strong> is far more complex. It accounts for month lengths, February's 28 days, and automatically adjusts for leap years until the year 2100.</p>
-
-          <!-- The Conversation Layer -->
-          <div class="conversation-box">
-            <h4>The Conversation Layer: What to Say</h4>
-            <p>"I’ve always appreciated the mechanics of a perpetual calendar over standard date displays—the idea that gear ratios can account for leap years without digital intervention is incredible mechanical art."</p>
-          </div>
-
-          <!-- Knowledge Verification -->
-          <div class="quiz-container">
-            <h3 style="font-family: var(--font-serif); margin-bottom: 1rem;">Verification Check</h3>
-            <p style="margin-bottom: 1rem; font-size: 0.95rem;">Which complication automatically accounts for leap years without needing annual manual adjustment?</p>
-            
-            <button class="quiz-option" onclick="checkAnswer(this, false)">A. Chronograph</button>
-            <button class="quiz-option" onclick="checkAnswer(this, false)">B. Annual Calendar</button>
-            <button class="quiz-option" onclick="checkAnswer(this, true)">C. Perpetual Calendar</button>
-            <button class="quiz-option" onclick="checkAnswer(this, false)">D. GMT Movement</button>
-
-            <div id="quiz-feedback" class="quiz-feedback"></div>
-          </div>
+        <div class="room-card" onclick="switchSubject('workshop')">
+          <span class="room-name">The Workshop</span>
+          <h3>6. Practical Skills</h3>
+          <p>Mechanical thinking, maintenance, emergency prep, tools, and understanding your limits.</p>
         </div>
       </div>
     </div>
 
-    <!-- VIEW 3: DRAWING ROOM (CONVERSATION) -->
-    <div id="view-drawing" class="view-container">
-      <div class="lesson-content">
-        <div class="lesson-header">
-          <p class="section-subtitle">The Drawing Room · Lesson 01</p>
-          <h1>Reciprocal Conversation</h1>
-        </div>
+    <!-- ==========================================================================
+       VIEW 2: DEDICATED SUBJECT PAGE — WATCHES
+       ========================================================================== -->
+    <div id="view-watches" class="view-container">
+      <div class="breadcrumb">
+        <span onclick="switchSubject('hall')">Entrance Hall</span> &gt; 
+        <span class="active">The Study (Watches)</span>
+      </div>
 
-        <div class="lesson-body">
-          <p>The goal of conversation is not to impress, lecture, or dominate. The goal of conversation is to create an interaction that both participants genuinely enjoy.</p>
-          
-          <p>A common error is treating conversation like a tennis match where you simply wait for your turn to hit the ball back with an anecdote about yourself. Real elegance in dialogue comes from <strong>curiosity and intelligent follow-ups</strong>.</p>
+      <div class="subject-header">
+        <span class="room-tag">School 01 · The Study</span>
+        <h1>Mechanical Horology</h1>
+        <p>Don't just recognize a watch house. Understand movement architecture, complications, origins, and why mechanical craftsmanship matters.</p>
+      </div>
 
-          <div class="conversation-box">
-            <h4>Instead of saying:</h4>
-            <p>"I went to Florence last year. The food was amazing and I stayed at a great hotel."</p>
-            <h4 style="margin-top: 1rem;">Try asking:</h4>
-            <p>"I noticed you mentioned spending time in Tuscany. Was there a particular region or town that surprised you?"</p>
-          </div>
+      <!-- Sub-subject / Sub-lesson Navbar -->
+      <div class="sub-navigation">
+        <button class="sub-nav-btn active" onclick="switchSubTopic('watches', 'intro')">1. Foundations</button>
+        <button class="sub-nav-btn" onclick="switchSubTopic('watches', 'anatomy')">2. Anatomy & Movements</button>
+        <button class="sub-nav-btn" onclick="switchSubTopic('watches', 'complications')">3. Complications</button>
+        <button class="sub-nav-btn" onclick="switchSubTopic('watches', 'conversation')">4. Conversation Layer</button>
+      </div>
+
+      <!-- Sub-Subject Content Tabs -->
+      <div id="watches-sub-intro" class="sub-topic-content active">
+        <h2 style="font-family: var(--font-serif); color: var(--green-racing); margin-bottom: 1rem;">Why Watches Still Matter</h2>
+        <p>In an age where digital screens dictate time with microsecond accuracy, wearing a mechanical watch is an intentional appreciation for miniature kinetic art.</p>
+        <p style="margin-top: 1rem;">A mechanical watch operates without battery or electrical current—relying purely on a wound spring, tiny gear trains, and an escapement oscillating thousands of times per hour.</p>
+      </div>
+
+      <div id="watches-sub-anatomy" class="sub-topic-content">
+        <h2 style="font-family: var(--font-serif); color: var(--green-racing); margin-bottom: 1rem;">Mechanical Movement Architecture</h2>
+        <p>At the core of every mechanical watch is its movement (or caliber). Movements fall into two primary categories:</p>
+        <ul style="margin: 1rem 0 1rem 2rem;">
+          <li><strong>Manual Winding:</strong> Tension is stored in the mainspring by manually turning the crown.</li>
+          <li><strong>Automatic Winding:</strong> A weighted rotor pivots as your wrist moves, automatically winding the mainspring.</li>
+        </ul>
+      </div>
+
+      <div id="watches-sub-complications" class="sub-topic-content">
+        <h2 style="font-family: var(--font-serif); color: var(--green-racing); margin-bottom: 1rem;">Annual vs. Perpetual Calendars</h2>
+        <p>A <strong>complication</strong> is any function on a mechanical watch beyond standard timekeeping.</p>
+        <p style="margin-top: 1rem;">An <em>Annual Calendar</em> automatically accounts for 30 and 31-day months, but requires manual resetting once a year on March 1st.</p>
+        <p style="margin-top: 1rem;">A <em>Perpetual Calendar</em> mechanically tracks month lengths, February's 28 days, and leap year cycles automatically until the year 2100.</p>
+      </div>
+
+      <div id="watches-sub-conversation" class="sub-topic-content">
+        <h2 style="font-family: var(--font-serif); color: var(--green-racing); margin-bottom: 1rem;">The Horological Conversation Layer</h2>
+        <p>The goal is to speak knowledgeably without sounding pedantic or ostentatious.</p>
+        <div class="conversation-box">
+          <h4>When someone brings up a complicated watch:</h4>
+          <p>"I’ve always admired how perpetual calendars solve leap years purely through mechanical gearing. It’s an astounding piece of micro-engineering."</p>
         </div>
       </div>
     </div>
+
+    <!-- ==========================================================================
+       VIEW 3: DEDICATED SUBJECT PAGE — CONVERSATION & ETIQUETTE
+       ========================================================================== -->
+    <div id="view-conversation" class="view-container">
+      <div class="breadcrumb">
+        <span onclick="switchSubject('hall')">Entrance Hall</span> &gt; 
+        <span class="active">The Drawing Room (Conversation)</span>
+      </div>
+
+      <div class="subject-header">
+        <span class="room-tag">School 02 · The Drawing Room</span>
+        <h1>Conversation & Etiquette</h1>
+        <p>Conversation isn't a performance to demonstrate smarts. It is the art of creating reciprocal, engaging dialogue where both participants feel comfortable.</p>
+      </div>
+
+      <!-- Sub-subject Navbar -->
+      <div class="sub-navigation">
+        <button class="sub-nav-btn active" onclick="switchSubTopic('conversation', 'reciprocity')">1. Principle of Reciprocity</button>
+        <button class="sub-nav-btn" onclick="switchSubTopic('conversation', 'questions')">2. Intelligent Inquiries</button>
+        <button class="sub-nav-btn" onclick="switchSubTopic('conversation', 'hosting')">3. Hosting Grace</button>
+      </div>
+
+      <div id="conversation-sub-reciprocity" class="sub-topic-content active">
+        <h2 style="font-family: var(--font-serif); color: var(--green-racing); margin-bottom: 1rem;">The Reciprocal Principle</h2>
+        <p>The cardinal sin of social dialogue is treating conversation like an interview or a platform to deliver a monologue. Reciprocity requires balanced listening and thoughtful follow-up.</p>
+      </div>
+
+      <div id="conversation-sub-questions" class="sub-topic-content">
+        <h2 style="font-family: var(--font-serif); color: var(--green-racing); margin-bottom: 1rem;">Asking Superior Follow-up Questions</h2>
+        <p>Instead of responding immediately with your own anecdote, ask a question that invites the speaker to share more perspective.</p>
+      </div>
+
+      <div id="conversation-sub-hosting" class="sub-topic-content">
+        <h2 style="font-family: var(--font-serif); color: var(--green-racing); margin-bottom: 1rem;">The Art of Hosting</h2>
+        <p>A gentleman host makes introductions effortless, ensures no guest stands isolated, and manages the rhythm of the evening seamlessly.</p>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+       VIEW 4: DEDICATED SUBJECT PAGE — STYLE & DRESS
+       ========================================================================== -->
+    <div id="view-style" class="view-container">
+      <div class="breadcrumb">
+        <span onclick="switchSubject('hall')">Entrance Hall</span> &gt; 
+        <span class="active">The Dressing Room (Style)</span>
+      </div>
+
+      <div class="subject-header">
+        <span class="room-tag">School 03 · The Dressing Room</span>
+        <h1>Style & Tailoring</h1>
+        <p>Understand the rules of proportion, drape, fabric construction, and context so clothing works naturally for you.</p>
+      </div>
+
+      <div class="sub-navigation">
+        <button class="sub-nav-btn active" onclick="switchSubTopic('style', 'fit')">1. Fit & Proportion</button>
+        <button class="sub-nav-btn" onclick="switchSubTopic('style', 'construction')">2. Canvassed Construction</button>
+        <button class="sub-nav-btn" onclick="switchSubTopic('style', 'blacktie')">3. Black Tie Architecture</button>
+      </div>
+
+      <div id="style-sub-fit" class="sub-topic-content active">
+        <h2 style="font-family: var(--font-serif); color: var(--green-racing); margin-bottom: 1rem;">Proportion Over Brand</h2>
+        <p>Fit is paramount. An inexpensive suit tailored to flawless proportions will always look vastly superior to an ill-fitting designer garment.</p>
+      </div>
+
+      <div id="style-sub-construction" class="sub-topic-content">
+        <h2 style="font-family: var(--font-serif); color: var(--green-racing); margin-bottom: 1rem;">Fused vs. Full Canvas</h2>
+        <p>A canvassed suit jacket uses natural haircloth layers inside that conform to your body shape over time, producing a natural drape compared to cheap glued (fused) interlinings.</p>
+      </div>
+
+      <div id="style-sub-blacktie" class="sub-topic-content">
+        <h2 style="font-family: var(--font-serif); color: var(--green-racing); margin-bottom: 1rem;">The Elegance of Black Tie</h2>
+        <p>Black tie is not merely a black suit with a bow tie. It demands specific proportions: dinner jacket with peak or shawl lapels, silk facings, un-cuffed trousers, and a hand-tied bow tie.</p>
+      </div>
+    </div>
+
   </main>
 
   <footer>
     <p>&copy; 2026 The Gentleman. A Digital Finishing School for the Modern Man.</p>
   </footer>
 
-  <!-- SCRIPT LOGIC -->
+  <!-- SCRIPT LOGIC FOR SUBJECT & SUB-SUBJECT ROUTING -->
   <script>
-    // Toggle Hamburger Menu Open/Close
+    // Toggle Mobile Navigation
     function toggleMenu() {
       const navMenu = document.getElementById('nav-menu');
       const hamburgerBtn = document.getElementById('hamburger-btn');
-      
       navMenu.classList.toggle('open');
       hamburgerBtn.classList.toggle('active');
     }
 
-    // Helper function to handle menu click & view switch together
-    function handleNav(viewName) {
-      switchView(viewName);
-      
-      // Close mobile menu after selecting a link
+    function handleNav(subjectId) {
+      switchSubject(subjectId);
       const navMenu = document.getElementById('nav-menu');
       const hamburgerBtn = document.getElementById('hamburger-btn');
       if (navMenu.classList.contains('open')) {
@@ -562,38 +552,52 @@
       }
     }
 
-    // View Switching Mechanism
-    function switchView(viewName) {
+    // Main Page Switcher (Subject Level)
+    function switchSubject(subjectId) {
+      // Hide all main page views
       const views = document.querySelectorAll('.view-container');
       views.forEach(view => view.classList.remove('active'));
 
+      // Deactivate top nav links
       const navLinks = document.querySelectorAll('.nav-links a');
       navLinks.forEach(link => link.classList.remove('active'));
 
-      const selectedView = document.getElementById('view-' + viewName);
-      if (selectedView) {
-        selectedView.classList.add('active');
+      // Show targeted subject view
+      const targetView = document.getElementById('view-' + subjectId);
+      if (targetView) {
+        targetView.classList.add('active');
       }
 
-      const selectedNav = document.getElementById('nav-nav-' + viewName) || document.getElementById('nav-' + viewName);
-      if (selectedNav) {
-        selectedNav.classList.add('active');
+      // Highlight active nav item
+      const activeNav = document.getElementById('nav-' + subjectId);
+      if (activeNav) {
+        activeNav.classList.add('active');
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Quiz Option Checker
-    function checkAnswer(button, isCorrect) {
-      const feedback = document.getElementById('quiz-feedback');
-      
-      if (isCorrect) {
-        feedback.className = "quiz-feedback correct";
-        feedback.innerHTML = "<strong>Correct.</strong> A perpetual calendar mechanically calculates 28, 30, and 31-day months as well as leap year cycles.";
-      } else {
-        feedback.className = "quiz-feedback incorrect";
-        feedback.innerHTML = "<strong>Incorrect.</strong> Remember: An annual calendar requires adjustment every March 1st, whereas a perpetual calendar accounts for leap years automatically.";
+    // Nested Sub-Subject Tab Switcher
+    function switchSubTopic(subjectId, subTopicId) {
+      const parentView = document.getElementById('view-' + subjectId);
+      if (!parentView) return;
+
+      // Deactivate all sub-topic content containers within this subject
+      const subContents = parentView.querySelectorAll('.sub-topic-content');
+      subContents.forEach(content => content.classList.remove('active'));
+
+      // Deactivate all sub-navigation buttons within this subject
+      const subNavBtns = parentView.querySelectorAll('.sub-nav-btn');
+      subNavBtns.forEach(btn => btn.classList.remove('active'));
+
+      // Show selected sub-topic
+      const targetSubContent = document.getElementById(subjectId + '-sub-' + subTopicId);
+      if (targetSubContent) {
+        targetSubContent.classList.add('active');
       }
+
+      // Highlight clicked sub-nav button
+      event.currentTarget.classList.add('active');
     }
   </script>
 </body>
